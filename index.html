@@ -19,15 +19,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
 <!-- Babel not needed: JSX pre-compiled -->
 <script>
-// Detect if CDN scripts failed to load
-if(typeof React==='undefined'||typeof ReactDOM==='undefined'||typeof Babel==='undefined'){
+// Detect if CDN scripts failed to load (check after page loads)
+window.addEventListener('load', function() {
+if(typeof React==='undefined'||typeof ReactDOM==='undefined'){
 window._cdnFail=true;
 var _missing=[];
 if(typeof React==='undefined') _missing.push('React');
 if(typeof ReactDOM==='undefined') _missing.push('ReactDOM');
-if(typeof Babel==='undefined') _missing.push('Babel');
 if(window._showCDNError) window._showCDNError(_missing.join(', '));
 }
+});
 </script>
 <script>
 window._showCDNError=function(lib){
@@ -131,11 +132,11 @@ body.dark .shell-card{background:#0d1117}
 <script>
 // Animate loading bar
 let lp=0;
-const li=setInterval(()=>{lp=Math.min(lp+Math.random()*15,90);const b=document.getElementById("load-bar");if(b)b.style.width=lp+"%";},200);
+var li=setInterval(()=>{lp=Math.min(lp+Math.random()*15,90);var b=document.getElementById("load-bar");if(b)b.style.width=lp+"%";},200);
 // Hide loading screen once React renders
 window._hideLoading=function(){
 clearInterval(li);
-const s=document.getElementById("loading-screen");
+var s=document.getElementById("loading-screen");
 if(s){s.style.transition="opacity 0.4s";s.style.opacity="0";setTimeout(()=>s.remove(),400);}
 };
 </script>
